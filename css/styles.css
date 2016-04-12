@@ -592,8 +592,15 @@ textarea{
 .submitAppointment a,
 .missionStatement,
 .statusContent h2,
-.brands h1{
+.brands h1,
+.modalContent h2,
+.statusContent h2{
 	color: #fff;
 	font-weight: 700;
 	text-transform: uppercase;
+}
+
+.page-loading .modal,
+.page-loading .statusModal{
+	display: none;
 }

@@ -1,4 +1,6 @@
 $(function(){
+	$("html").removeClass("page-loading");
+
 	function openModal(){
 		window.scroll(0, 0);
 
