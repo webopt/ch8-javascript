@@ -3,26 +3,14 @@ $(function(){
 
 	function openModal(){
 		window.scroll(0, 0);
-
-		// Turn on the page fader
-		$(".pageFade").show();
-
-		var topPlacement = $(window).width() > 500 ? "10%" : 0;
-
+		$(".pageFade").removeClass("hide");
 		$(".modal").addClass("open");
 	}
 
 	function closeModal(){
-		// Clear All Fields
 		clearFields();
-
-		// Hide Modal
 		$(".modal").removeClass("open");
-
-		// Hide Page Fade
-		$(".pageFade").hide();
-
-		// Change body visibility
+		$(".pageFade").addClass("hide");
 		$("body").removeClass("locked");
 	}
 
@@ -30,86 +18,77 @@ $(function(){
 		$("#name, #address, #phone, #alternatePhone, #email, #problem, #preferredTime").val("");
 	}
 
-	$(function(){
-		// Modal open
-		$("#schedule").click(function(){
-			// Change body visibility
-			$("body").addClass("locked");
+	// Scheduling modal open
+	$("#schedule").bind("click", function(){
+		$("body").addClass("locked");
+		openModal();
+	});
 
-			// Open Modal
-			openModal();
-		});
+	// Modal close via click
+	$(".closeModal, .pageFade").bind("click", function(){
+		closeModal();
+	});
 
-		// Modal close via click
-		$(".closeModal, .pageFade").click(function(){
+	// Modal close via pressing escape
+	$(window).bind("keyup", function(e){
+		console.log(e.which);
+		// Check if the modal is open and the escape key was pressed
+		if(e.which === 27 && $(".modal").hasClass("open")){
 			// Close the modal
 			closeModal();
-		});
+		}
+	});
 
-		// Modal close via pressing escape
-		$(window).keyup(function(e){
-			// Check if the modal is open and the escape key was pressed
-			if(e.which === 27 && parseInt($(".modal").css("top"), 10) > 0){
-				// Close the modal
-				closeModal();
-			}
-		});
+	// Appointment submit behavior
+	$(".submitAppointment a").bind("click", function(){
+		$.ajax({
+			url: "js/response.json",
+			type: "GET",
+			data: {
+				name: $("#name").val(),
+				address: $("#address").val(),
+				phone: $("#phone").val(),
+				alternatePhone: $("#alternatePhone").val(),
+				email: $("#email").val(),
+				problem: $("#problem").val(),
+				preferredTime: $("#preferredTime").val()
+			},
+			dataType: "json",
+			success: function(data, textStatus, xhr){
+				// Populate the status
+				$("#status").text(data.message);
 
-		// Appointment submit behavior
-		$(".submitAppointment a").click(function(){
-			$.ajax({
-				url: "js/response.json",
-				type: "GET",
-				data: {
-					name: $("#name").val(),
-					address: $("#address").val(),
-					phone: $("#phone").val(),
-					alternatePhone: $("#alternatePhone").val(),
-					email: $("#email").val(),
-					problem: $("#problem").val(),
-					preferredTime: $("#preferredTime").val()
-				},
-				dataType: "json",
-				success: function(data, textStatus, xhr){
-					// Populate the status
-					$("#status").text(data.message);
+				// Show the status
+				$(".statusModal").addClass("show");
+				$(".modal").removeClass("open");
 
-					// Show the status
-					$(".statusModal").css({
-						"display": "flex"
-					});
-
-					closeModal();
-
-					// Change the rel attribute of the status button
-					if(data.status === true){
-						$("#okayButton").attr("rel", "success");
-						$("#headerStatus").text("Thank You!");
-						clearFields();
-					}
-					else{
-						$("#okayButton").attr("rel", "failure");
-						$("#headerStatus").text("Error");
-					}
+				// Change the rel attribute of the status button
+				if(data.status === true){
+					$("#okayButton").attr("rel", "success");
+					$("#headerStatus").text("Thank You!");
+					clearFields();
 				}
+				else{
+					$("#okayButton").attr("rel", "failure");
+					$("#headerStatus").text("Error");
+				}
+			}
+		});
+	});
+
+	$("#okayButton").bind("click", function(){
+		if($(this).attr("rel") === "failure"){
+			$(".statusModal").removeClass("show");
+
+			// Fade in the loader
+			$(".modal").css({
+				"display": "block"
 			});
-		});
-
-		$("#okayButton").click(function(){
-			if($(this).attr("rel") === "failure"){
-				$(".statusModal").css({
-					"display": "none"
-				});
-
-				// Fade in the loader
-				$(".modal").show();
-			}
-			else{
-				// Fade out the status modal and page fade
-				$(".statusModal, .pageFade").css({
-					"display": "none"
-				});
-			}
-		});
+		}
+		else{
+			// Fade out the status modal and page fade
+			$(".pageFade").addClass("hide");
+			$(".statusModal").removeClass("show");
+		}
 	});
 });

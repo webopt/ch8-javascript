@@ -51,7 +51,14 @@ body{
 	padding: 0;
 	top: 0;
 	left: 0;
+}
+
+.hide{
 	display: none;
+}
+
+.show{
+	display: block;
 }
 
 .pageWrapper{
@@ -355,6 +362,10 @@ textarea{
 	z-index: 1002;
 	position: absolute;
 	display: none;
+}
+
+.statusModal.show{
+	display: flex;
 }
 
 .greyStrip,
