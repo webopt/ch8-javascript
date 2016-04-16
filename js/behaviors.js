@@ -8,14 +8,9 @@ $(function(){
 	}
 
 	function closeModal(){
-		clearFields();
 		$(".modal").removeClass("open");
 		$(".pageFade").addClass("hide");
 		$("body").removeClass("locked");
-	}
-
-	function clearFields(){
-		$("#name, #address, #phone, #alternatePhone, #email, #problem, #preferredTime").val("");
 	}
 
 	// Scheduling modal open
@@ -27,16 +22,6 @@ $(function(){
 	// Modal close via click
 	$(".closeModal, .pageFade").bind("click", function(){
 		closeModal();
-	});
-
-	// Modal close via pressing escape
-	$(window).bind("keyup", function(e){
-		console.log(e.which);
-		// Check if the modal is open and the escape key was pressed
-		if(e.which === 27 && $(".modal").hasClass("open")){
-			// Close the modal
-			closeModal();
-		}
 	});
 
 	// Appointment submit behavior
@@ -66,7 +51,6 @@ $(function(){
 				if(data.status === true){
 					$("#okayButton").attr("rel", "success");
 					$("#headerStatus").text("Thank You!");
-					clearFields();
 				}
 				else{
 					$("#okayButton").attr("rel", "failure");
