@@ -41,7 +41,7 @@ $(function(){
 			dataType: "json",
 			success: function(data, textStatus, xhr){
 				// Populate the status
-				$("#status").text(data.message);
+				$("#status").html(data.message);
 
 				// Show the status
 				$(".statusModal").addClass("show");
@@ -50,11 +50,11 @@ $(function(){
 				// Change the rel attribute of the status button
 				if(data.status === true){
 					$("#okayButton").attr("data-status", "success");
-					$("#headerStatus").text("Thank You!");
+					$("#headerStatus").html("Thank You!");
 				}
 				else{
 					$("#okayButton").attr("data-status", "failure");
-					$("#headerStatus").text("Error");
+					$("#headerStatus").html("Error");
 				}
 			}
 		});
