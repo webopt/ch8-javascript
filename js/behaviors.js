@@ -27,18 +27,20 @@ $(function(){
 
 	// Appointment submit behavior
 	$(".submitAppointment a").bind("click", function(){
+		var formData = {
+			name: $("#name").val(),
+			address: $("#address").val(),
+			phone: $("#phone").val(),
+			alternatePhone: $("#alternatePhone").val(),
+			email: $("#email").val(),
+			problem: $("#problem").val(),
+			preferredTime: $("#preferredTime").val()
+		};
+
 		$.ajax({
 			url: "js/response.json",
 			type: "GET",
-			data: {
-				name: $("#name").val(),
-				address: $("#address").val(),
-				phone: $("#phone").val(),
-				alternatePhone: $("#alternatePhone").val(),
-				email: $("#email").val(),
-				problem: $("#problem").val(),
-				preferredTime: $("#preferredTime").val()
-			},
+			data: formData,
 			dataType: "json",
 			success: function(data, textStatus, xhr){
 				$("#status").html(data.message);
