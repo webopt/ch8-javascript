@@ -10,6 +10,7 @@ $(function(){
 	function closeModal(){
 		$(".modal").removeClass("open");
 		$(".pageFade").addClass("hide");
+		$(".statusModal").removeClass("show");
 		$("body").removeClass("locked");
 	}
 
@@ -40,14 +41,10 @@ $(function(){
 			},
 			dataType: "json",
 			success: function(data, textStatus, xhr){
-				// Populate the status
 				$("#status").html(data.message);
-
-				// Show the status
 				$(".statusModal").addClass("show");
 				$(".modal").removeClass("open");
 
-				// Change the rel attribute of the status button
 				if(data.status === true){
 					$("#okayButton").attr("data-status", "success");
 					$("#headerStatus").html("Thank You!");
@@ -63,14 +60,9 @@ $(function(){
 	$("#okayButton").bind("click", function(){
 		if($(this).attr("data-status") === "failure"){
 			$(".statusModal").removeClass("show");
-
-			// Fade in the loader
-			$(".modal").css({
-				"display": "block"
-			});
+			$(".modal").addClass("open");
 		}
 		else{
-			// Fade out the status modal and page fade
 			$(".pageFade").addClass("hide");
 			$(".statusModal").removeClass("show");
 		}
