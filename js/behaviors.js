@@ -49,11 +49,11 @@ $(function(){
 
 				// Change the rel attribute of the status button
 				if(data.status === true){
-					$("#okayButton").attr("rel", "success");
+					$("#okayButton").attr("data-status", "success");
 					$("#headerStatus").text("Thank You!");
 				}
 				else{
-					$("#okayButton").attr("rel", "failure");
+					$("#okayButton").attr("data-status", "failure");
 					$("#headerStatus").text("Error");
 				}
 			}
@@ -61,7 +61,7 @@ $(function(){
 	});
 
 	$("#okayButton").bind("click", function(){
-		if($(this).attr("rel") === "failure"){
+		if($(this).attr("data-status") === "failure"){
 			$(".statusModal").removeClass("show");
 
 			// Fade in the loader
