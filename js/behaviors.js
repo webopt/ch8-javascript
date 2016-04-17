@@ -39,7 +39,7 @@ $(function(){
 
 		$.ajax({
 			url: "js/response.json",
-			type: "GET",
+			type: "POST",
 			data: formData,
 			dataType: "json",
 			success: function(data){
