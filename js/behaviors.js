@@ -42,7 +42,7 @@ $(function(){
 			type: "GET",
 			data: formData,
 			dataType: "json",
-			success: function(data, textStatus, xhr){
+			success: function(data){
 				$("#status").html(data.message);
 				$(".statusModal").addClass("show");
 				$(".modal").removeClass("open");
@@ -59,7 +59,7 @@ $(function(){
 		});
 	});
 
-	$("#okayButton").bind("click", function(){
+	$("#okayButton").bind("click", function(e){
 		if($(this).attr("data-status") === "failure"){
 			$(".statusModal").removeClass("show");
 			$(".modal").addClass("open");
