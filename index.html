@@ -21,21 +21,23 @@
 			<a class="closeModal"></a>
 			<div class="modalContent">
 				<h2>Make an Appointment</h2>
-				<p class="formLabel">Your Name</p>
-				<input type="text" class="text" id="name">
-				<p class="formLabel">Address (Street, City, ST ZIP)</p>
-				<input type="text" class="text" id="address">
-				<p class="formLabel">Phone (XXX-XXX-XXXX)</p>
-				<input type="text" class="text" id="phone">
-				<p class="formLabel">Phone (Alternate)</p>
-				<input type="text" class="text" id="alternatePhone">
-				<p class="formLabel">E-Mail</p>
-				<input type="text" class="text" id="email">
-				<p class="formLabel">Describe the problem you are experiencing</p>
-				<textarea id="problem"></textarea>
-				<p class="formLabel">Your preferred appoinment time</p>
-				<input type="text" class="text" id="preferredTime">
-				<div class="submitAppointment"><a href="javascript:void(0);">Submit Request</a></div>
+				<form id="appointmentForm" method="POST">
+					<p class="formLabel">Your Name</p>
+					<input type="text" class="text" id="name">
+					<p class="formLabel">Address (Street, City, ST ZIP)</p>
+					<input type="text" class="text" id="address">
+					<p class="formLabel">Phone (XXX-XXX-XXXX)</p>
+					<input type="text" class="text" id="phone">
+					<p class="formLabel">Phone (Alternate)</p>
+					<input type="text" class="text" id="alternatePhone">
+					<p class="formLabel">E-Mail</p>
+					<input type="text" class="text" id="email">
+					<p class="formLabel">Describe the problem you are experiencing</p>
+					<textarea id="problem"></textarea>
+					<p class="formLabel">Your preferred appoinment time</p>
+					<input type="text" class="text" id="preferredTime">
+					<div class="submitAppointment"><a href="javascript:void(0);">Submit Request</a></div>
+				</form>
 			</div>
 		</div>
 		<div class="pageWrapper">
