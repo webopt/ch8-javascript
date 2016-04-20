@@ -1,72 +1,63 @@
-$(function(){
-	$("html").removeClass("page-loading");
+document.addEventListener("readystatechange", function(){
+	document.querySelector("html").classList.remove("page-loading");
 
 	function openModal(){
 		window.scroll(0, 0);
-		$(".pageFade").removeClass("hide");
-		$(".modal").addClass("open");
+		document.querySelector(".pageFade").classList.remove("hide");
+		document.querySelector(".modal").classList.add("open");
 	}
 
 	function closeModal(){
-		$(".modal").removeClass("open");
-		$(".pageFade").addClass("hide");
-		$(".statusModal").removeClass("show");
-		$("body").removeClass("locked");
+		document.querySelector(".modal").classList.remove("open");
+		document.querySelector(".pageFade").classList.add("hide");
+		document.querySelector(".statusModal").classList.remove("show");
+		document.querySelector("body").classList.remove("locked");
 	}
 
 	// Scheduling modal open
-	$("#schedule").bind("click", function(){
-		$("body").addClass("locked");
+	document.querySelector("#schedule").addEventListener("click", function(){
+		document.querySelector("body").classList.add("locked");
 		openModal();
 	});
 
 	// Modal close via click
-	$(".closeModal, .pageFade").bind("click", function(){
+	document.querySelector(".closeModal, .pageFade").addEventListener("click", function(){
 		closeModal();
 	});
 
 	// Appointment submit behavior
-	$(".submitAppointment a").bind("click", function(){
-		var formData = {
-			name: $("#name").val(),
-			address: $("#address").val(),
-			phone: $("#phone").val(),
-			alternatePhone: $("#alternatePhone").val(),
-			email: $("#email").val(),
-			problem: $("#problem").val(),
-			preferredTime: $("#preferredTime").val()
-		};
+	document.querySelector(".submitAppointment a").addEventListener("click", function(e){
+		var formData = new FormData(document.getElementById("appointmentForm"));
 
-		$.ajax({
-			url: "js/response.json",
-			type: "POST",
-			data: formData,
-			dataType: "json",
-			success: function(data){
-				$("#status").html(data.message);
-				$(".statusModal").addClass("show");
-				$(".modal").removeClass("open");
+		fetch("/js/response.json", {
+			method: "POST",
+			body: formData
+		}).then(function(response){
+			return response.json();
+		}).then(function(data){
+			document.querySelector("#status").innerHTML = data.message;
+			document.querySelector(".statusModal").classList.add("show");
+			document.querySelector(".modal").classList.remove("open");
 
-				if(data.status === true){
-					$("#okayButton").attr("data-status", "success");
-					$("#headerStatus").html("Thank You!");
-				}
-				else{
-					$("#okayButton").attr("data-status", "failure");
-					$("#headerStatus").html("Error");
-				}
+			if(data.status === true){
+				document.querySelector("#okayButton").setAttribute("data-status", "success");
+				document.querySelector("#headerStatus").innerHTML = "Thank You!";
+			}
+			else{
+				document.querySelector("#okayButton").setAttribute("data-status", "failure");
+				document.querySelector("#headerStatus").innerHTML = "Error";
 			}
 		});
 	});
 
-	$("#okayButton").bind("click", function(e){
-		if($(this).attr("data-status") === "failure"){
-			$(".statusModal").removeClass("show");
-			$(".modal").addClass("open");
+	document.querySelector("#okayButton").addEventListener("click", function(e){
+		if(e.target.getAttribute("data-status") === "failure"){
+			document.querySelector(".statusModal").classList.remove("show");
+			document.querySelector(".modal").classList.add("open");
 		}
 		else{
-			$(".pageFade").addClass("hide");
-			$(".statusModal").removeClass("show");
+			document.querySelector(".pageFade").classList.add("hide");
+			document.querySelector(".statusModal").classList.remove("show");
 		}
 	});
 });

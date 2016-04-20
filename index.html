@@ -5,8 +5,6 @@
 		<meta name="robots" content="noindex, nofollow">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/styles.min.css">
-		<script src="js/jquery.min.js"></script>
-		<script src="js/behaviors.js"></script>
 	</head>
 	<body>
 		<div class="pageFade hide"></div>
@@ -145,5 +143,16 @@
 				<h3 class="address">Coyle Appliance Repair - 15 W Kellog Blvd - Saint Paul, MN 55102 - <a href="tel:+1-651-555-5555">651-555-5555</a> - Call 24 Hours A Day</h3>
 			</footer>
 		</div>
+		<script src="js/behaviors.js" async></script>
+		<script>
+			(function(document, window){
+				if(!window.fetch){
+					var fetchScript = document.createElement("script");
+					fetchScript.src = "js/fetch.min.js";
+					fetchScript.async = "async";
+					document.body.appendChild(fetchScript);
+				}
+			})(document, window);
+		</script>
 	</body>
 </html>
