@@ -40,6 +40,10 @@ body{
 	background: #000 url("../img/bg.png");
 }
 
+.locked{
+	overflow-y: hidden;
+}
+
 .pageFade{
 	opacity: 0.75;
 	background: #222;
@@ -262,8 +266,7 @@ footer a{
 .modal,
 .statusModal{
 	position: absolute;
-	transform: translateY(-150%);
-	transition: transform .5s;
+	top: -150%;
 	left: 50%;
 	margin: 0 0 0 -155px;
 	width: 310px;
@@ -271,10 +274,6 @@ footer a{
 	border: 5px solid #c40a0a;
 	border-radius: 12px;
 	background: #080808;
-}
-
-.modal.open{
-	transform: translateY(10%);
 }
 
 #headerStatus{
@@ -551,10 +550,6 @@ textarea{
 
 	.rightLocations ul{
 		flex-basis: 50%;
-	}
-
-	.modal.open{
-		transform: translateY(0);
 	}
 }
 
