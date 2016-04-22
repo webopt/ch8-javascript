@@ -30,7 +30,7 @@ document.addEventListener("readystatechange", function(){
 				}
 			};
 
-		setTimeout(draw, interval);
+		draw();
 	}
 
 	function openModal(){
